@@ -7,7 +7,7 @@ var fs = require('fs'),
 var app = require('connect')();
 var swaggerTools = require('swagger-tools');
 var jsyaml = require('js-yaml');
-var serverPort = 8080;
+var serverPort = 3000;
 
 // The Swagger document (require it, build it programmatically, fetch it from a URL, ...)
 // var spec = fs.readFileSync(path.join(__dirname,'api/swagger.yaml'), 'utf8');

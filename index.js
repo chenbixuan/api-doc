@@ -1,18 +1,19 @@
 'use strict';
 
-var fs = require('fs'),
+const fs = require('fs'),
     path = require('path'),
     http = require('http');
 
-var app = require('connect')();
-var swaggerTools = require('swagger-tools');
-var jsyaml = require('js-yaml');
-var serverPort = 3000;
+const app = require('connect')();
+const swaggerTools = require('swagger-tools');
+const jsyaml = require('js-yaml');
+const serverPort = 3000;
+
+const data = require('./load');
 
 // The Swagger document (require it, build it programmatically, fetch it from a URL, ...)
-// var spec = fs.readFileSync(path.join(__dirname,'api/swagger.yaml'), 'utf8');
-var spec = fs.readFileSync(path.join(__dirname, './api/api.json'), 'utf8');
-var swaggerDoc = jsyaml.safeLoad(spec);
+// const spec = fs.readFileSync(path.join(__dirname,'api/swagger.yaml'), 'utf8');
+const swaggerDoc = jsyaml.safeLoad(JSON.stringify(data));
 
 // Initialize the Swagger middleware
 swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {

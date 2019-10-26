@@ -98,17 +98,8 @@ module.exports = {
           }
         ],
         "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/WxUser"
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "WxUser not found"
+          "default": {
+            "$ref": "#/definitions/DelResponse"
           }
         }
       }

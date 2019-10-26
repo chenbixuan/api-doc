@@ -1,23 +1,22 @@
 module.exports = {
   "tags": [
     {
-      "name": "banner",
-      "description": "轮播图"
+      "name": "shop",
+      "description": "门店"
     }
   ],
   "paths": {
-    "/banner/{bannerId}": {
+    "/shop/{shopId}": {
       "get": {
-        "deprecated": true,
-        "tags": ["banner"],
-        "summary": "获取轮播图",
-        "description": "banner",
+        "tags": ["shop"],
+        "summary": "获取门店",
+        "description": "shop",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "bannerId",
+            "name": "shopId",
             "in": "path",
             "description": "id",
             "required": true,
@@ -29,27 +28,27 @@ module.exports = {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/Banner"
+              "$ref": "#/definitions/Shop"
             }
           },
           "400": {
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "banner not found"
+            "description": "shop not found"
           }
         }
       },
       "put": {
-        "tags": ["banner"],
-        "summary": "更新banner",
-        "description": "banner",
+        "tags": ["shop"],
+        "summary": "更新shop",
+        "description": "shop",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "bannerId",
+            "name": "shopId",
             "in": "path",
             "description": "id",
             "required": true,
@@ -57,12 +56,12 @@ module.exports = {
             "format": "int64"
           },
           {
-            "name": "banner",
+            "name": "shop",
             "in": "body",
-            "description": "banner info",
+            "description": "shop info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Banner"
+              "$ref": "#/definitions/Shop"
             }
           }
         ],
@@ -70,27 +69,27 @@ module.exports = {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/Banner"
+              "$ref": "#/definitions/Shop"
             }
           },
           "400": {
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "banner not found"
+            "description": "shop not found"
           }
         }
       },
       "delete": {
-        "tags": ["banner"],
-        "summary": "删除banner",
-        "description": "banner",
+        "tags": ["shop"],
+        "summary": "删除shop",
+        "description": "shop",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "bannerId",
+            "name": "shopId",
             "in": "path",
             "description": "id",
             "required": true,
@@ -105,37 +104,23 @@ module.exports = {
         }
       }
     },
-    "/banner": {
+    "/shop": {
       "get": {
-        "tags": ["banner"],
-        "summary": "获取轮播图",
-        "description": "banner",
+        "tags": ["shop"],
+        "summary": "获取门店",
+        "description": "shop",
         "produces": [
           "application/json"
         ],
         "parameters": [
-          {
-            "in": "query",
-            "name": "type",
-            "type": "string",
-            "enum": ['INDEX', 'INDEX_SERVICE', 'SERVICE1', 'SERVICE2']
-          },
-          {
-            "in": "query",
-            "name": "enable",
-            "type": "boolean"
-          }
         ],
         "responses": {
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/definitions/Banner"
-                }
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Shop"
               }
             }
           },
@@ -143,25 +128,25 @@ module.exports = {
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "banner not found"
+            "description": "shop not found"
           }
         }
       },
       "post": {
-        "tags": ["banner"],
-        "summary": "新增banner",
-        "description": "banner",
+        "tags": ["shop"],
+        "summary": "新增shop",
+        "description": "shop",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "banner",
+            "name": "shop",
             "in": "body",
-            "description": "信息",
+            "description": "门店信息",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Banner"
+              "$ref": "#/definitions/Shop"
             }
           }
         ],
@@ -169,46 +154,58 @@ module.exports = {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/Banner"
+              "$ref": "#/definitions/Shop"
             }
           },
           "400": {
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "banner not found"
+            "description": "shop not found"
           }
         }
       }
     }
   },
   "definitions": {
-    "Banner": {
+    "Response1": {
+      "type": "object",
+      "properties": {
+        "Shop": {
+          "$ref": "#/definitions/Shop"
+        }
+      }
+    },
+    "Shop": {
       "type": "object",
       "properties": {
         "id": {
           "type": "integer",
           "format": "int64"
         },
-        "title": {
-          "type": "string"
+        "name": {
+          "type": "string",
+          "description": '店名'
         },
-        "url": {
-          "type": "string"
+        "addr": {
+          "type": "string",
+          "description": '地址'
         },
-        "sort": {
-          "type": "integer"
+        "addrJc": {
+          "type": "string",
+          "description": '驾车地址'
+        },
+        "addrGj": {
+          "type": "string",
+          "description": '公交地铁地址'
+        },
+        "pic": {
+          "type": "integer",
+          "description": '门店背景图'
         },
         "enable": {
-          "type": "boolean"
-        },
-        "type": {
-          "type": "string",
-          "enum": ['INDEX', 'INDEX_SERVICE', 'SERVICE1', 'SERVICE2'],
-          "description": "轮播类型：INDEX-首页轮播图，INDEX_SERVICE-首页服务轮播， SERVICE1-服务展示1， SERVICE2-服务展示2"
-        },
-        "picId": {
-          "type": "integer"
+          "type": "boolean",
+          "description": '是否启用'
         }
       }
     }

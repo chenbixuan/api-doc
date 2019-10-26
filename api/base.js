@@ -12,6 +12,21 @@ module.exports = {
     "https"
   ],
   "definitions": {
+    "DelResponse": {
+      "type": "object",
+      "description": "delete...",
+      "properties": {
+        "200": {
+          "description": "successful operation",
+        },
+        "400": {
+          "description": "Invalid ID supplied"
+        },
+        "404": {
+          "description": "shop not found"
+        }
+      }
+    },
     "Category": {
       "type": "object",
       "properties": {

@@ -8,6 +8,7 @@ module.exports = {
   "paths": {
     "/banner/{bannerId}": {
       "get": {
+        "deprecated": true,
         "tags": ["banner"],
         "summary": "获取轮播图",
         "description": "banner",
@@ -41,7 +42,7 @@ module.exports = {
       },
       "put": {
         "tags": ["banner"],
-        "summary": "更新会员信息",
+        "summary": "更新banner",
         "description": "banner",
         "produces": [
           "application/json"
@@ -50,7 +51,7 @@ module.exports = {
           {
             "name": "bannerId",
             "in": "path",
-            "description": "会员id",
+            "description": "id",
             "required": true,
             "type": "integer",
             "format": "int64"
@@ -58,7 +59,7 @@ module.exports = {
           {
             "name": "banner",
             "in": "body",
-            "description": "会员信息",
+            "description": "banner info",
             "required": true,
             "schema": {
               "$ref": "#/definitions/Banner"
@@ -82,7 +83,7 @@ module.exports = {
       },
       "delete": {
         "tags": ["banner"],
-        "summary": "删除某个会员",
+        "summary": "删除banner",
         "description": "banner",
         "produces": [
           "application/json"
@@ -116,18 +117,35 @@ module.exports = {
     "/banner": {
       "get": {
         "tags": ["banner"],
-        "summary": "获取会员信息",
+        "summary": "获取轮播图",
         "description": "banner",
         "produces": [
           "application/json"
         ],
         "parameters": [
+          {
+            "in": "query",
+            "name": "type",
+            "type": "string",
+            "enum": ['INDEX', 'INDEX_SERVICE', 'SERVICE1', 'SERVICE2']
+          },
+          {
+            "in": "query",
+            "name": "enable",
+            "type": "boolean"
+          }
         ],
         "responses": {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/Banner"
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Banner"
+                }
+              }
             }
           },
           "400": {
@@ -140,7 +158,7 @@ module.exports = {
       },
       "post": {
         "tags": ["banner"],
-        "summary": "新增会员",
+        "summary": "新增banner",
         "description": "banner",
         "produces": [
           "application/json"
@@ -183,6 +201,23 @@ module.exports = {
         },
         "title": {
           "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "sort": {
+          "type": "integer"
+        },
+        "enable": {
+          "type": "boolean"
+        },
+        "type": {
+          "type": "string",
+          "enum": ['INDEX', 'INDEX_SERVICE', 'SERVICE1', 'SERVICE2'],
+          "description": "轮播类型：INDEX-首页轮播图，INDEX_SERVICE-首页服务轮播， SERVICE1-服务展示1， SERVICE2-服务展示2"
+        },
+        "picId": {
+          "type": "integer"
         }
       }
     }

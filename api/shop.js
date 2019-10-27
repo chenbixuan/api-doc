@@ -168,14 +168,6 @@ module.exports = {
     }
   },
   "definitions": {
-    "Response1": {
-      "type": "object",
-      "properties": {
-        "Shop": {
-          "$ref": "#/definitions/Shop"
-        }
-      }
-    },
     "Shop": {
       "type": "object",
       "properties": {

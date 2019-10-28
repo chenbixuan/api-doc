@@ -113,17 +113,6 @@ module.exports = {
           "application/json"
         ],
         "parameters": [
-          {
-            "in": "query",
-            "name": "type",
-            "type": "string",
-            "enum": ['INDEX', 'INDEX_SERVICE', 'SERVICE1', 'SERVICE2']
-          },
-          {
-            "in": "query",
-            "name": "enable",
-            "type": "boolean"
-          }
         ],
         "responses": {
           "200": {

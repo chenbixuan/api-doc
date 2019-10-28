@@ -1,22 +1,22 @@
 module.exports = {
   "tags": [
     {
-      "name": "shop",
-      "description": "门店"
+      "name": "user",
+      "description": "用户"
     }
   ],
   "paths": {
-    "/shop/{shopId}": {
+    "/user/{userId}": {
       "get": {
-        "tags": ["shop"],
-        "summary": "获取门店",
-        "description": "shop",
+        "tags": ["user"],
+        "summary": "get one",
+        "description": "user",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "shopId",
+            "name": "userId",
             "in": "path",
             "description": "id",
             "required": true,
@@ -28,27 +28,27 @@ module.exports = {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/Shop"
+              "$ref": "#/definitions/User"
             }
           },
           "400": {
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "shop not found"
+            "description": "user not found"
           }
         }
       },
       "put": {
-        "tags": ["shop"],
-        "summary": "更新shop",
-        "description": "shop",
+        "tags": ["user"],
+        "summary": "update one",
+        "description": "user",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "shopId",
+            "name": "userId",
             "in": "path",
             "description": "id",
             "required": true,
@@ -56,12 +56,12 @@ module.exports = {
             "format": "int64"
           },
           {
-            "name": "shop",
+            "name": "user",
             "in": "body",
-            "description": "shop info",
+            "description": "user info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Shop"
+              "$ref": "#/definitions/User"
             }
           }
         ],
@@ -69,27 +69,27 @@ module.exports = {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/Shop"
+              "$ref": "#/definitions/User"
             }
           },
           "400": {
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "shop not found"
+            "description": "user not found"
           }
         }
       },
       "delete": {
-        "tags": ["shop"],
-        "summary": "删除shop",
-        "description": "shop",
+        "tags": ["user"],
+        "summary": "delete one",
+        "description": "user",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "shopId",
+            "name": "userId",
             "in": "path",
             "description": "id",
             "required": true,
@@ -104,47 +104,58 @@ module.exports = {
         }
       }
     },
-    "/shop": {
+    "/user": {
       "get": {
-        "tags": ["shop"],
-        "summary": "获取门店",
-        "description": "shop",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "array",
-              "$ref": "#/definitions/ShopList"
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "shop not found"
-          }
-        }
-      },
-      "post": {
-        "tags": ["shop"],
-        "summary": "新增shop",
-        "description": "shop",
+        "tags": ["user"],
+        "summary": "get all",
+        "description": "user",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "shop",
+            "in": "query",
+            "name": "type",
+            "type": "string",
+            "enum": ['INDEX', 'INDEX_SERVICE', 'SERVICE1', 'SERVICE2']
+          },
+          {
+            "in": "query",
+            "name": "enable",
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UserList"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "user not found"
+          }
+        }
+      },
+      "post": {
+        "tags": ["user"],
+        "summary": "add one",
+        "description": "user",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user",
             "in": "body",
-            "description": "门店信息",
+            "description": "信息",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Shop"
+              "$ref": "#/definitions/User"
             }
           }
         ],
@@ -152,50 +163,38 @@ module.exports = {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/Shop"
+              "$ref": "#/definitions/User"
             }
           },
           "400": {
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "shop not found"
+            "description": "user not found"
           }
         }
       }
     }
   },
   "definitions": {
-    "Shop": {
+    "User": {
       "type": "object",
       "properties": {
-        "name": {
+        "username": {
           "type": "string",
-          "description": '店名'
+          "description": "用户名"
         },
-        "addr": {
+        "phoneNumber": {
           "type": "string",
-          "description": '地址'
+          "description": "手机号"
         },
-        "addrJc": {
+        "password": {
           "type": "string",
-          "description": '驾车地址'
-        },
-        "addrGj": {
-          "type": "string",
-          "description": '公交地铁地址'
-        },
-        "pic": {
-          "type": "integer",
-          "description": '门店背景图'
-        },
-        "enable": {
-          "type": "boolean",
-          "description": '是否启用'
+          "description": "密码"
         }
       }
     },
-    "ShopList": {
+    "UserList": {
       "description": "列表",
       "type": "object",
       "properties": {
@@ -206,7 +205,7 @@ module.exports = {
         "lists": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Shop"
+            "$ref": "#/definitions/User"
           }
         }
       }

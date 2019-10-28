@@ -186,10 +186,6 @@ module.exports = {
     "Banner": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
         "title": {
           "type": "string"
         },

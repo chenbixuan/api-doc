@@ -1,24 +1,24 @@
 module.exports = {
   "tags": [
     {
-      "name": "wxUser",
-      "description": "会员用户"
+      "name": "card",
+      "description": "系统卡券"
     }
   ],
   "paths": {
-    "/wxUser/{wxUserId}": {
+    "/card/{cardId}": {
       "get": {
-        "tags": ["wxUser"],
-        "summary": "获取某个会员信息",
-        "description": "wxUser",
+        "tags": ["card"],
+        "summary": "get one",
+        "description": "card",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "wxUserId",
+            "name": "cardId",
             "in": "path",
-            "description": "会员id",
+            "description": "id",
             "required": true,
             "type": "integer",
             "format": "int64"
@@ -28,40 +28,40 @@ module.exports = {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/WxUser"
+              "$ref": "#/definitions/Card"
             }
           },
           "400": {
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "WxUser not found"
+            "description": "card not found"
           }
         }
       },
       "put": {
-        "tags": ["wxUser"],
-        "summary": "更新会员信息",
-        "description": "wxUser",
+        "tags": ["card"],
+        "summary": "update one",
+        "description": "card",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "wxUserId",
+            "name": "cardId",
             "in": "path",
-            "description": "会员id",
+            "description": "id",
             "required": true,
             "type": "integer",
             "format": "int64"
           },
           {
-            "name": "wxUser",
+            "name": "card",
             "in": "body",
-            "description": "会员信息",
+            "description": "card info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/WxUser"
+              "$ref": "#/definitions/Card"
             }
           }
         ],
@@ -69,29 +69,29 @@ module.exports = {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/WxUser"
+              "$ref": "#/definitions/Card"
             }
           },
           "400": {
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "WxUser not found"
+            "description": "card not found"
           }
         }
       },
       "delete": {
-        "tags": ["wxUser"],
-        "summary": "删除某个会员",
-        "description": "wxUser",
+        "tags": ["card"],
+        "summary": "delete one",
+        "description": "card",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "wxUserId",
+            "name": "cardId",
             "in": "path",
-            "description": "会员id",
+            "description": "id",
             "required": true,
             "type": "integer",
             "format": "int64"
@@ -104,47 +104,58 @@ module.exports = {
         }
       }
     },
-    "/wxUser": {
+    "/card": {
       "get": {
-        "tags": ["wxUser"],
-        "summary": "获取会员信息",
-        "description": "wxUser",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "array",
-              "$ref": "#/definitions/WxUserList"
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "WxUser not found"
-          }
-        }
-      },
-      "post": {
-        "tags": ["wxUser"],
-        "summary": "新增会员",
-        "description": "wxUser",
+        "tags": ["card"],
+        "summary": "get all",
+        "description": "card",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "wxUser",
+            "in": "query",
+            "name": "type",
+            "type": "string",
+            "enum": ['INDEX', 'INDEX_SERVICE', 'SERVICE1', 'SERVICE2']
+          },
+          {
+            "in": "query",
+            "name": "enable",
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/CardList"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "card not found"
+          }
+        }
+      },
+      "post": {
+        "tags": ["card"],
+        "summary": "add one",
+        "description": "card",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "card",
             "in": "body",
-            "description": "会员信息",
+            "description": "信息",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/WxUser"
+              "$ref": "#/definitions/Card"
             }
           }
         ],
@@ -152,93 +163,71 @@ module.exports = {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/WxUser"
+              "$ref": "#/definitions/Card"
             }
           },
           "400": {
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "WxUser not found"
+            "description": "card not found"
           }
         }
       }
     }
   },
   "definitions": {
-    "WxUser": {
+    "Card": {
       "type": "object",
       "properties": {
-        "openId": {
+        "no": {
           "type": "string",
-          "description": '微信id',
+          "description": '券号',
         },
-        "unionId": {
+        "name": {
           "type": "string",
-          "description": '微信开放平台id',
+          "description": '卡券名称',
         },
-        "nickname": {
-          "type": "string",
-          "description": '昵称',
+        "type": {
+          "type": 'string',
+          "enum": ['CASH'],
+          "default": 'CASH',
+          "description": '类型：CASH-现金券',
         },
-        "realName": {
-          "type": "string",
-          "description": '真实姓名',
-        },
-        "title": {
-          "type": "string",
-          "default": 'bm',
-          "description": '称谓：bm-保密，xj-小姐，xz-小主，sx-少侠，gz-公子',
-        },
-        "birth": {
-          "type": "string",
-          "description": '生日',
-        },
-        "phoneNumber": {
-          "type": "string",
-          "description": '手机号',
-        },
-        "jf": {
+        "value": {
           "type": "integer",
           "default": 0,
-          "description": '积分',
+          "description": '面值',
         },
-        "avatarUrl": {
-          "type": "string",
-          "description": '头像url',
-        },
-        "gender": {
+        "expire": {
           "type": "integer",
           "default": 0,
-          "description": '性别：0-未知，1-男，2-女',
+          "description": '有效期',
         },
-        "country": {
+        "userLimit": {
           "type": "string",
-          "description": '国家',
+          "enum": ['NEW', 'OLD', 'NONE'],
+          "default": 'NONE',
+          "description": '限定用户：NEW-新用户，OLD-老用户，NONE-不限制',
         },
-        "province": {
-          "type": "string",
-          "description": '省'
-        },
-        "city": {
-          "type": "string",
-          "description": '城市',
-        },
-        "language": {
-          "type": "string",
-          "description": '语言：en-英文，zh_CN-简体中文，zh_TW-繁体中文',
-        },
-        "userId": {
+        "shopId": {
           "type": "integer",
-          "description": '用户id',
+          "default": 0,
+          "description": '限定门店，0-不限制',
         },
-        "joinAt": {
+        "count": {
           "type": "integer",
-          "description": '入会时间',
+          "default": 0,
+          "description": '发放数量',
+        },
+        "remain": {
+          "type": "integer",
+          "default": 0,
+          "description": '剩余数量',
         },
       }
     },
-    "WxUserList": {
+    "CardList": {
       "description": "列表",
       "type": "object",
       "properties": {
@@ -249,7 +238,7 @@ module.exports = {
         "lists": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/WxUser"
+            "$ref": "#/definitions/Card"
           }
         }
       }

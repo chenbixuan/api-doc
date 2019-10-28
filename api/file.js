@@ -1,22 +1,22 @@
 module.exports = {
   "tags": [
     {
-      "name": "shop",
-      "description": "门店"
+      "name": "file",
+      "description": "文件信息"
     }
   ],
   "paths": {
-    "/shop/{shopId}": {
+    "/file/{fileId}": {
       "get": {
-        "tags": ["shop"],
-        "summary": "获取门店",
-        "description": "shop",
+        "tags": ["file"],
+        "summary": "get one",
+        "description": "file",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "shopId",
+            "name": "fileId",
             "in": "path",
             "description": "id",
             "required": true,
@@ -28,27 +28,27 @@ module.exports = {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/Shop"
+              "$ref": "#/definitions/File"
             }
           },
           "400": {
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "shop not found"
+            "description": "file not found"
           }
         }
       },
       "put": {
-        "tags": ["shop"],
-        "summary": "更新shop",
-        "description": "shop",
+        "tags": ["file"],
+        "summary": "update one",
+        "description": "file",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "shopId",
+            "name": "fileId",
             "in": "path",
             "description": "id",
             "required": true,
@@ -56,12 +56,12 @@ module.exports = {
             "format": "int64"
           },
           {
-            "name": "shop",
+            "name": "file",
             "in": "body",
-            "description": "shop info",
+            "description": "file info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Shop"
+              "$ref": "#/definitions/File"
             }
           }
         ],
@@ -69,27 +69,27 @@ module.exports = {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/Shop"
+              "$ref": "#/definitions/File"
             }
           },
           "400": {
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "shop not found"
+            "description": "file not found"
           }
         }
       },
       "delete": {
-        "tags": ["shop"],
-        "summary": "删除shop",
-        "description": "shop",
+        "tags": ["file"],
+        "summary": "delete one",
+        "description": "file",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "shopId",
+            "name": "fileId",
             "in": "path",
             "description": "id",
             "required": true,
@@ -104,47 +104,58 @@ module.exports = {
         }
       }
     },
-    "/shop": {
+    "/file": {
       "get": {
-        "tags": ["shop"],
-        "summary": "获取门店",
-        "description": "shop",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "array",
-              "$ref": "#/definitions/ShopList"
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "shop not found"
-          }
-        }
-      },
-      "post": {
-        "tags": ["shop"],
-        "summary": "新增shop",
-        "description": "shop",
+        "tags": ["file"],
+        "summary": "get all",
+        "description": "file",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "shop",
+            "in": "query",
+            "name": "type",
+            "type": "string",
+            "enum": ['INDEX', 'INDEX_SERVICE', 'SERVICE1', 'SERVICE2']
+          },
+          {
+            "in": "query",
+            "name": "enable",
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/FileList"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "file not found"
+          }
+        }
+      },
+      "post": {
+        "tags": ["file"],
+        "summary": "add one",
+        "description": "file",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "file",
             "in": "body",
-            "description": "门店信息",
+            "description": "信息",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Shop"
+              "$ref": "#/definitions/File"
             }
           }
         ],
@@ -152,50 +163,45 @@ module.exports = {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/Shop"
+              "$ref": "#/definitions/File"
             }
           },
           "400": {
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "shop not found"
+            "description": "file not found"
           }
         }
       }
     }
   },
   "definitions": {
-    "Shop": {
+    "File": {
       "type": "object",
       "properties": {
         "name": {
           "type": "string",
-          "description": '店名'
+            "description": '文件名',
         },
-        "addr": {
+        "type": {
           "type": "string",
-          "description": '地址'
+            "enum": ['IMAGE', 'VIDEO'],
+            "default": 'IMAGE',
+            "description": '文件类型',
         },
-        "addrJc": {
-          "type": "string",
-          "description": '驾车地址'
-        },
-        "addrGj": {
-          "type": "string",
-          "description": '公交地铁地址'
-        },
-        "pic": {
+        "size": {
           "type": "integer",
-          "description": '门店背景图'
+            "default": 0,
+            "description": '文件大小',
         },
-        "enable": {
-          "type": "boolean",
-          "description": '是否启用'
-        }
+        "path": {
+          "type": "string",
+            "description": '相对路径',
+        },
       }
     },
-    "ShopList": {
+    "FileList": {
       "description": "列表",
       "type": "object",
       "properties": {
@@ -206,7 +212,7 @@ module.exports = {
         "lists": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Shop"
+            "$ref": "#/definitions/File"
           }
         }
       }

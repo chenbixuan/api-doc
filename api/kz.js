@@ -1,22 +1,22 @@
 module.exports = {
   "tags": [
     {
-      "name": "shop",
-      "description": "门店"
+      "name": "kz",
+      "description": "客照"
     }
   ],
   "paths": {
-    "/shop/{shopId}": {
+    "/kz/{kzId}": {
       "get": {
-        "tags": ["shop"],
-        "summary": "获取门店",
-        "description": "shop",
+        "tags": ["kz"],
+        "summary": "获取客照",
+        "description": "kz",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "shopId",
+            "name": "kzId",
             "in": "path",
             "description": "id",
             "required": true,
@@ -28,27 +28,27 @@ module.exports = {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/Shop"
+              "$ref": "#/definitions/Kz"
             }
           },
           "400": {
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "shop not found"
+            "description": "kz not found"
           }
         }
       },
       "put": {
-        "tags": ["shop"],
-        "summary": "更新shop",
-        "description": "shop",
+        "tags": ["kz"],
+        "summary": "更新kz",
+        "description": "kz",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "shopId",
+            "name": "kzId",
             "in": "path",
             "description": "id",
             "required": true,
@@ -56,12 +56,12 @@ module.exports = {
             "format": "int64"
           },
           {
-            "name": "shop",
+            "name": "kz",
             "in": "body",
-            "description": "shop info",
+            "description": "kz info",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Shop"
+              "$ref": "#/definitions/Kz"
             }
           }
         ],
@@ -69,27 +69,27 @@ module.exports = {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/Shop"
+              "$ref": "#/definitions/Kz"
             }
           },
           "400": {
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "shop not found"
+            "description": "kz not found"
           }
         }
       },
       "delete": {
-        "tags": ["shop"],
-        "summary": "删除shop",
-        "description": "shop",
+        "tags": ["kz"],
+        "summary": "删除kz",
+        "description": "kz",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "shopId",
+            "name": "kzId",
             "in": "path",
             "description": "id",
             "required": true,
@@ -104,47 +104,52 @@ module.exports = {
         }
       }
     },
-    "/shop": {
+    "/kz": {
       "get": {
-        "tags": ["shop"],
-        "summary": "获取门店",
-        "description": "shop",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "array",
-              "$ref": "#/definitions/ShopList"
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "shop not found"
-          }
-        }
-      },
-      "post": {
-        "tags": ["shop"],
-        "summary": "新增shop",
-        "description": "shop",
+        "tags": ["kz"],
+        "summary": "获取客照",
+        "description": "kz",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "shop",
+            "in": "query",
+            "name": "enable",
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/KzList"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "kz not found"
+          }
+        }
+      },
+      "post": {
+        "tags": ["kz"],
+        "summary": "新增kz",
+        "description": "kz",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "kz",
             "in": "body",
-            "description": "门店信息",
+            "description": "信息",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Shop"
+              "$ref": "#/definitions/Kz"
             }
           }
         ],
@@ -152,50 +157,42 @@ module.exports = {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/Shop"
+              "$ref": "#/definitions/Kz"
             }
           },
           "400": {
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "shop not found"
+            "description": "kz not found"
           }
         }
       }
     }
   },
   "definitions": {
-    "Shop": {
+    "Kz": {
       "type": "object",
       "properties": {
-        "name": {
+        "title": {
           "type": "string",
-          "description": '店名'
+          "description": "客照详情"
         },
-        "addr": {
+        "pics": {
           "type": "string",
-          "description": '地址'
-        },
-        "addrJc": {
-          "type": "string",
-          "description": '驾车地址'
-        },
-        "addrGj": {
-          "type": "string",
-          "description": '公交地铁地址'
-        },
-        "pic": {
-          "type": "integer",
-          "description": '门店背景图'
+          "description": "照片id"
         },
         "enable": {
           "type": "boolean",
-          "description": '是否启用'
+          "description": "开启状态"
+        },
+        "date": {
+          "type": "integer",
+          "description": "显示日期"
         }
       }
     },
-    "ShopList": {
+    "KzList": {
       "description": "列表",
       "type": "object",
       "properties": {
@@ -206,7 +203,7 @@ module.exports = {
         "lists": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Shop"
+            "$ref": "#/definitions/Kz"
           }
         }
       }

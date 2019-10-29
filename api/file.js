@@ -184,7 +184,7 @@ module.exports = {
             "default": 0,
             "description": '文件大小',
         },
-        "path": {
+        "url": {
           "type": "string",
             "description": '相对路径',
         },

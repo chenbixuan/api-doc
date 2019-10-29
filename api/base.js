@@ -1,3 +1,5 @@
+const config = require('../config');
+
 module.exports = {
   "swagger": "2.0",
   "info": {
@@ -5,7 +7,7 @@ module.exports = {
     "version": "1.0.0",
     "title": "沉璧轩api"
   },
-  "host": "localhost:3001",
+  "host": `${config.host}`,
   "basePath": "/api",
   "schemes": [
     "http",

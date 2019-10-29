@@ -113,6 +113,12 @@ module.exports = {
           "application/json"
         ],
         "parameters": [
+          {
+            "in": "query",
+            "name": "enable",
+            "type": "boolean",
+            "description": "启用状态"
+          }
         ],
         "responses": {
           "200": {

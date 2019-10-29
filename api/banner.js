@@ -118,12 +118,14 @@ module.exports = {
             "in": "query",
             "name": "type",
             "type": "string",
-            "enum": ['INDEX', 'INDEX_SERVICE', 'SERVICE1', 'SERVICE2']
+            "enum": ['INDEX', 'INDEX_SERVICE', 'SERVICE1', 'SERVICE2'],
+            "description": "轮播图类型"
           },
           {
             "in": "query",
             "name": "enable",
-            "type": "boolean"
+            "type": "boolean",
+            "description": "启用状态"
           }
         ],
         "responses": {

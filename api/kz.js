@@ -178,7 +178,7 @@ module.exports = {
           "type": "string",
           "description": "客照详情"
         },
-        "pics": {
+        "picIds": {
           "type": "string",
           "description": "照片id"
         },
@@ -187,7 +187,7 @@ module.exports = {
           "description": "开启状态"
         },
         "date": {
-          "type": "integer",
+          "type": "string",
           "description": "显示日期"
         }
       }

@@ -169,7 +169,7 @@ module.exports = {
               "properties": {
                 "cardId": {
                   "type": "integer",
-                  "description": "用户id"
+                  "description": "卡券id"
                 },
                 "userId": {
                   "type": "integer",

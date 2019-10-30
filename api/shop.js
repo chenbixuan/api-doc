@@ -118,6 +118,16 @@ module.exports = {
             "name": "enable",
             "type": "boolean",
             "description": "启用状态"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "integer"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "integer"
           }
         ],
         "responses": {

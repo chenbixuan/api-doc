@@ -113,6 +113,16 @@ module.exports = {
           "application/json"
         ],
         "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "type": "integer"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "integer"
+          }
         ],
         "responses": {
           "200": {

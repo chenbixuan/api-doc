@@ -117,6 +117,16 @@ module.exports = {
             "in": "query",
             "name": "enable",
             "type": "boolean"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "integer"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "integer"
           }
         ],
         "responses": {

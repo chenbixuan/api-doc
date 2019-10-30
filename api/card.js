@@ -205,6 +205,12 @@ module.exports = {
           "default": 'NONE',
           "description": '限定用户：NEW-新用户，OLD-老用户，NONE-不限制',
         },
+        "limitType": {
+          "type": "string",
+          "enum": ['REG', 'SHARE', 'NONE'],
+          "default": 'NONE',
+          "description": '领取条件：REG：新用户注册，SHARE：分享获取，NONE-不限制',
+        },
         "shopId": {
           "type": "integer",
           "default": 0,

@@ -114,6 +114,13 @@ module.exports = {
         ],
         "parameters": [
           {
+            "name": "status",
+            "type": "string",
+            "in": "query",
+            "enum": ['UNUSED', 'USED', 'OUT'],
+            "description": '状态：UNUSED-未使用，USED-已使用，OUT-已过期',
+          },
+          {
             "name": "page",
             "in": "query",
             "type": "integer"
@@ -142,19 +149,33 @@ module.exports = {
       },
       "post": {
         "tags": ["userCard"],
-        "summary": "add one",
+        "summary": "领取卡券",
         "description": "userCard",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "userCard",
+            "name": "body",
             "in": "body",
-            "description": "信息",
+            "description": "卡券id",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/UserCard"
+              "type": "object",
+              "required": [
+                "cardId",
+                "userId"
+              ],
+              "properties": {
+                "cardId": {
+                  "type": "integer",
+                  "description": "用户id"
+                },
+                "userId": {
+                  "type": "integer",
+                  "description": "用户id"
+                }
+              }
             }
           }
         ],
@@ -199,20 +220,30 @@ module.exports = {
           "description": '面值',
         },
         "expire": {
-          "type": "integer",
-          "default": 0,
+          "type": "string",
           "description": '有效期',
         },
         "shopId": {
           "type": "integer",
-          "default": 0,
-          "description": '限定门店，0-不限制',
+          "description": '限定门店，0/null-不限制',
         },
         "userLimit": {
           "type": "string",
           "enum": ['NEW', 'OLD', 'NONE'],
           "default": 'NONE',
           "description": '限定用户：NEW-新用户，OLD-老用户，NONE-不限制',
+        },
+        "limitType": {
+          "type": "string",
+          "enum": ['REG', 'SHARE', 'NONE'],
+          "default": 'NONE',
+          "description": '领取条件：REG：新用户注册，SHARE：分享获取，NONE-不限制',
+        },
+        "status": {
+          "type": "string",
+          "enum": ['UNUSED', 'USED'],
+          "default": 'UNUSED',
+          "description": '轮播类型：UNUSED-未使用，USED-已使用',
         },
         "userId": {
           "type": "integer",

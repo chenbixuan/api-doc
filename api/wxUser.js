@@ -28,7 +28,7 @@ module.exports = {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/WxUser"
+              "$ref": "#/definitions/WxUserService"
             }
           },
           "400": {
@@ -113,6 +113,12 @@ module.exports = {
           "application/json"
         ],
         "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string",
+            "description": "姓名/手机号"
+          },
           {
             "name": "page",
             "in": "query",
@@ -200,10 +206,6 @@ module.exports = {
           "default": 'bm',
           "description": '称谓：bm-保密，xj-小姐，xz-小主，sx-少侠，gz-公子',
         },
-        "birth": {
-          "type": "string",
-          "description": '生日',
-        },
         "phoneNumber": {
           "type": "string",
           "description": '手机号',
@@ -213,6 +215,16 @@ module.exports = {
           "default": 0,
           "description": '积分',
         },
+        "appointmentCount": {
+          "type": "integer",
+          "default": 0,
+          "description": '消费总次数',
+        },
+        "appointmentAmount": {
+          "type": "number",
+          "default": 0,
+          "description": '消费总金额',
+        },
         "avatarUrl": {
           "type": "string",
           "description": '头像url',
@@ -221,6 +233,10 @@ module.exports = {
           "type": "integer",
           "default": 0,
           "description": '性别：0-未知，1-男，2-女',
+        },
+        "birth": {
+          "type": "string",
+          "description": '生日',
         },
         "country": {
           "type": "string",
@@ -238,14 +254,100 @@ module.exports = {
           "type": "string",
           "description": '语言：en-英文，zh_CN-简体中文，zh_TW-繁体中文',
         },
+        "joinAt": {
+          "type": "string",
+          "description": '入会时间',
+        },
         "userId": {
           "type": "integer",
           "description": '用户id',
         },
-        "joinAt": {
-          "type": "integer",
-          "description": '入会时间',
+      }
+    },
+    "WxUserService": {
+      "type": "object",
+      "description": "会员消费详情",
+      "properties": {
+        "nickname": {
+          "type": "string",
+          "description": "昵称"
         },
+        "realName": {
+          "type": "string",
+          "description": "真实姓名"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "birth": {
+          "type": "string",
+          "description": "出生日期"
+        },
+        "gender": {
+          "type": "integer",
+          "description": "性别：0-未知，1-男，2-女"
+        },
+        "avatarUrl": {
+          "type": "string",
+          "description": "头像url"
+        },
+        "appointmentAmount": {
+          "type": "integer",
+          "description": "消费总金额"
+        },
+        "total": {
+          "type": "integer",
+          "description": "预约次数"
+        },
+        "finished": {
+          "type": "integer",
+          "description": "实际到店"
+        },
+        "canceled": {
+          "type": "integer",
+          "description": "取消次数"
+        },
+        "waiting": {
+          "type": "integer",
+          "description": "待到店"
+        },
+        "hfty": {
+          "type": "integer",
+          "description": "汉服体验次数"
+        },
+        "cjyp": {
+          "type": "integer",
+          "description": "出街约拍次数"
+        },
+        "other": {
+          "type": "integer",
+          "description": "其他"
+        },
+        "avg": {
+          "type": "integer",
+          "description": "平均客单价"
+        },
+        "lastDay": {
+          "type": "string",
+          "description": "最近消费日"
+        },
+        "cardCount": {
+          "type": "integer",
+          "description": "优惠券数"
+        },
+        "cardAmount": {
+          "type": "integer",
+          "description": "优惠券金额"
+        },
+        "usedCount": {
+          "type": "integer",
+          "description": "已使用优惠券"
+        },
+        "usedAmount": {
+          "type": "integer",
+          "description": "已使用金额"
+        }
       }
     },
     "WxUserList": {

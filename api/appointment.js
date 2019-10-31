@@ -114,6 +114,18 @@ module.exports = {
         ],
         "parameters": [
           {
+            "name": "date",
+            "in": "query",
+            "type": "string",
+            "description": "预约的日期：2019-10-22"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "type": "string",
+            "description": "状态；WAITING-未完成，FINISHED-已完成，CANCELED-已取消"
+          },
+          {
             "name": "page",
             "in": "query",
             "type": "integer"
@@ -151,10 +163,9 @@ module.exports = {
           {
             "name": "appointment",
             "in": "body",
-            "description": "信息",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Appointment"
+              "$ref": "#/definitions/AddApointment"
             }
           }
         ],
@@ -221,6 +232,34 @@ module.exports = {
           "type": "integer",
           "description": '用户id'
         },
+      }
+    },
+    "AddApointment": {
+      "type": "object",
+      "description": "创建预约",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ['HFTY', 'ZTSY', 'CJYP', 'DZFW'],
+          "default": 'ZTSY',
+          "description": '订单类型：HFTY-汉服/变装体验，ZTSY-主题摄影，CJYP-出街约拍，DZFW-定制服务',
+        },
+        "date": {
+          "type": "string",
+          "description": '',
+        },
+        "period": {
+          "type": "string",
+          "description": '时间段',
+        },
+        "shopId": {
+          "type": "integer",
+          "description": '店铺id',
+        },
+        "userId": {
+          "type": "integer",
+          "description": '用户id'
+        }
       }
     },
     "AppointmentList": {

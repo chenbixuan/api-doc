@@ -122,6 +122,11 @@ module.exports = {
             "name": "pageSize",
             "in": "query",
             "type": "integer"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {

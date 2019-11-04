@@ -173,7 +173,42 @@ module.exports = {
           }
         }
       }
-    }
+    },
+    "/login": {
+      "post": {
+        "tags": ["user"],
+        "summary": "login",
+        "description": "user",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "信息",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserLogin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "user not found"
+          }
+        }
+      }
+    },
   },
   "definitions": {
     "User": {
@@ -190,7 +225,24 @@ module.exports = {
         "password": {
           "type": "string",
           "description": "密码"
-        }
+        },
+        "accessToken": {
+          "type": "string",
+          "description": '登录凭证',
+        },
+        "enable": {
+          "type": "boolean",
+          "default": true,
+          "description": '是否启用',
+        },
+        "loginIp": {
+          "type": "string",
+          "description": '上次登录ip',
+        },
+        "loginAt": {
+          "type": "string",
+          "description": '上次登录时间',
+        },
       }
     },
     "UserList": {
@@ -208,6 +260,18 @@ module.exports = {
           }
         }
       }
-    }
+    },
+    "UserLogin": {
+      "description": "列表",
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
   }
 }
